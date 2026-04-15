@@ -1,0 +1,35 @@
+package com.example.islamicprayertimings
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+class PrayerAdapter(private val prayerItems: List<PrayerItem>) :
+    RecyclerView.Adapter<PrayerAdapter.PrayerViewHolder>() {
+
+    class PrayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val icon: ImageView = view.findViewById(R.id.prayerIcon)
+        val name: TextView = view.findViewById(R.id.prayerName)
+        val time: TextView = view.findViewById(R.id.prayerTime)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrayerViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_prayer, parent, false)
+        return PrayerViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: PrayerViewHolder, position: Int) {
+        val item = prayerItems[position]
+        holder.name.text = item.name
+        holder.time.text = item.time
+        holder.icon.setImageResource(item.iconResId)
+    }
+
+    override fun getItemCount() = prayerItems.size
+}
+
+data class PrayerItem(val name: String, val time: String, val iconResId: Int)
